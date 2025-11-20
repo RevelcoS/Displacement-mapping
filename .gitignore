@@ -1,0 +1,18 @@
+# Vim files
+*.swp
+*.vim/
+
+# Vscode files
+.vscode/
+
+# MacOS files
+.DS_Store
+
+# Object and binary files
+build/*
+
+# Libraries
+include/lib/*
+
+# Keep essential folders
+!.gitkeep
