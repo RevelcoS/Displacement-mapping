@@ -2,9 +2,9 @@
 
 int main() {
 
-    // render::init();
-    // render::render();
-    // render::save();
+    render::init();
+    render::render();
+    render::save();
  
     return 0;
 
