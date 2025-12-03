@@ -10,6 +10,7 @@ CCFLAGS += -Iinclude -Iinclude/lib
 
 OBJECTS += build/main.o
 OBJECTS += build/render.o
+OBJECTS += build/triangle.o
 OBJECTS += build/utils.o
 
 build/%.o: src/%.cpp include/%.h

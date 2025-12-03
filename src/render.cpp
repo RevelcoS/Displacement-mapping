@@ -4,8 +4,9 @@
 #include <glm/glm.hpp>
 
 #include "render.h"
-#include "objects.h"
 #include "utils.h"
+#include "objects.h"
+#include "triangle.h"
 
 const int width = 1024;
 const int height = 1024;
@@ -19,6 +20,7 @@ namespace render {
 
 }
 
+// Interface functions
 namespace render {
 
     void init() {
@@ -34,7 +36,7 @@ namespace render {
 
             for (int j = 0; j < width; j++) {
 
-                glm::ivec2 coord(i, j);
+                glm::ivec2 coord(j, i);
                 Color color = render::get_color(coord);
 
                 int offset = (i * width + j) * channels;
@@ -57,7 +59,7 @@ namespace render {
 
 }
 
-
+// Base raycast functions
 namespace render {
 
     Color raycast(glm::vec3 origin, glm::vec3 direction);
@@ -79,7 +81,7 @@ namespace render {
         glm::vec2 ray = glm::mix(s1, s2, uv);
     
         // Ray origin and direction
-        glm::vec3 direction( ray.x, ray.y, -1.0f );
+        glm::vec3 direction = glm::normalize(glm::vec3( ray.x, ray.y, -1.0f ));
         glm::vec3 origin(0.0f);
 
         // Raycast
@@ -91,8 +93,21 @@ namespace render {
 
     Color raycast(glm::vec3 origin, glm::vec3 direction) {
 
-        glm::vec3 color(0.15f, 0.32f, 1.0f);
-        return utils::color2hex(color);
+        const Triangle triangle = {
+
+            glm::vec3(30.0f, 28.0f, -1.0f),
+            glm::vec3(-21.0f, 20.0f, -1.0f),
+            glm::vec3(-30.0f, -40.0f, -1.0f)
+
+            // glm::vec3(0.0f, 1.0f, -1.0f),
+            // glm::vec3(-1.0f, -1.0f, -1.0f),
+            // glm::vec3(1.0f, -1.0f, -1.0f)
+
+        };
+
+        HitInfo info = TriangleIntersect(triangle, origin, direction); 
+
+        return utils::color2hex(info.color);
 
     }
 
